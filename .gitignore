@@ -8,3 +8,4 @@ models/
 *.keras
 *.h5
 kaggle.json
+kt/kt/
