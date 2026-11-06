@@ -8,4 +8,7 @@ models/
 *.keras
 *.h5
 kaggle.json
-kt/kt/
+kt/
+mlflow.db
+mlruns/
+mlartifacts/
