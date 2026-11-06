@@ -1,0 +1,8 @@
+run,change,val_auc,val_precision,val_f1,best_val_loss,test_auc,test_precision,test_recall,test_f1,test_accuracy
+R5_mnv2_tuned,"Keras Tuner best: one stage, 60 unfrozen",0.8967,0.9672,0.831,0.4193,0.8719,0.875,0.6914,0.7724,0.7755
+R7_effb0_tuned_autolog,"R5 with EfficientNetB0, autologged",0.8819,0.9623,0.7612,0.4278,0.8896,0.963,0.642,0.7704,0.7891
+R6_mnv2_tuned_160,R5 at 160x160,0.8689,0.9434,0.7463,0.4506,0.8457,0.8431,0.5309,0.6515,0.6871
+R2_mnv2_noaug,R1 without augmentation,0.8541,0.84,0.8077,0.4743,0.8217,0.7949,0.7654,0.7799,0.7619
+R1_mnv2_base,"baseline: two stages, last block unfrozen",0.8148,0.975,0.6446,0.5571,0.7753,0.8333,0.4938,0.6202,0.6667
+R4_mnv2_unfreeze60,R1 with 60 layers unfrozen in stage 2,0.8133,0.8644,0.7286,0.5195,0.783,0.7742,0.5926,0.6713,0.6803
+R3_mnv2_lr3e-4,R1 with head lr 3e-4,0.8108,0.9756,0.6557,0.5396,0.7897,0.8409,0.4568,0.592,0.6531
