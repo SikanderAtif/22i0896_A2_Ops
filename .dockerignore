@@ -1,0 +1,29 @@
+# secrets: never sent to the Docker build
+.env
+.env.*
+!.env.example
+
+# large or irrelevant for serving
+.venv/
+.git/
+.dvc/
+data/
+models/
+model/
+mlruns/
+mlartifacts/
+mlflow.db
+instance/
+kt/
+logs/
+samples/
+reports/
+toy/
+scripts/
+warmup/
+**/__pycache__/
+*.pyc
+*.keras
+*.h5
+Dockerfile*
+docker-compose*.yml

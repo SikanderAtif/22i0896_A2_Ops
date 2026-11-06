@@ -1,5 +1,4 @@
 """tf.data input pipeline. decode_and_resize() is ALSO used by the Flask app at serving time."""
-import pandas as pd
 import tensorflow as tf
 import keras
 from keras import layers
@@ -24,8 +23,10 @@ def build_augmenter(seed=42):
     ], name="augmentation")
 
 
+# visionguard/data.py: delete "import pandas as pd" from the top, and instead:
 def make_dataset(csv_path, img_size=IMG_SIZE, batch_size=32, training=False,
                  augment=True, seed=42):
+    import pandas as pd          # only needed for training, keeps the serving image smaller
     df = pd.read_csv(csv_path)
     paths = df["filepath"].to_numpy()
     labels = df["y"].to_numpy(dtype="float32").reshape(-1, 1)
