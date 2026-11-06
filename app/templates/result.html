@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ p.label }} · VisionGuard{% endblock %}
+{% block content %}
+<section class="card verdict {{ 'ai' if p.label == 'AI-generated' else 'real' }}">
+  <p class="eyebrow">Verdict</p>
+  <h1>{{ p.label }}</h1>
+  <div class="meter"><div style="width: {{ '%.1f'|format(p.confidence * 100) }}%"></div></div>
+  <p>Confidence: <strong>{{ '%.1f'|format(p.confidence * 100) }}%</strong></p>
+  <dl class="facts">
+    <dt>p(AI-generated)</dt><dd>{{ '%.1f'|format(p.p_ai * 100) }}%</dd>
+    <dt>Decision threshold</dt><dd>{{ '%.1f'|format(p.threshold * 100) }}%</dd>
+    <dt>Model</dt><dd>{{ p.model_name }} v{{ p.model_version }}</dd>
+    <dt>File</dt><dd>{{ p.filename }} ({{ p.image_width }}×{{ p.image_height }} {{ p.image_format }},
+                     {{ '%.0f'|format(p.file_size_bytes / 1024) }} KB)</dd>
+    <dt>Analysed</dt><dd>{{ p.created_at.strftime('%Y-%m-%d %H:%M:%S') }} UTC
+                         in {{ '%.0f'|format(p.latency_ms) }} ms</dd>
+  </dl>
+</section>
+<aside class="card caveat">
+  <h2>Please read before relying on this</h2>
+  <p>This verdict is a statistical estimate, not proof. The model was trained on fewer than
+     700 images, and on held-out test images it was wrong about one time in five. Paintings,
+     edited photos and heavily compressed images are especially likely to be misjudged.
+     Never use this result alone to accuse anyone of faking an image.</p>
+</aside>
+<p class="actions">
+  <a class="btn" href="{{ url_for('main.index') }}">Check another image</a>
+  <a class="btn secondary" href="{{ url_for('main.history') }}">View history</a>
+</p>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h1>Is this image AI-generated?</h1>
+  <p class="muted">JPEG, PNG, WebP, BMP or GIF, up to {{ max_mb|int }} MB.
+     The image is analysed in memory and never saved.</p>
+  <form action="{{ url_for('main.predict') }}" method="post" enctype="multipart/form-data">
+    <label class="drop">
+      <input type="file" name="image" id="image" accept=".jpg,.jpeg,.png,.webp,.bmp,.gif" required>
+      <span id="drop-text">Click to choose an image</span>
+      <img id="preview" alt="Preview of the chosen image" hidden>
+    </label>
+    <button type="submit" class="btn">Analyse image</button>
+  </form>
+</section>
+<script>
+  const input = document.getElementById("image"), img = document.getElementById("preview"),
+        txt = document.getElementById("drop-text");
+  input.addEventListener("change", () => {
+    const f = input.files[0]; if (!f) return;
+    txt.textContent = f.name; img.src = URL.createObjectURL(f); img.hidden = false;
+  });
+</script>
+{% endblock %}

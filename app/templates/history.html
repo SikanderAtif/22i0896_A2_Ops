@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}History · VisionGuard{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Prediction history</h1>
+  {% if pagination.items %}
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Time (UTC)</th><th>File</th><th>Verdict</th>
+                 <th>Confidence</th><th>p(AI)</th><th>Model</th><th>Latency</th></tr></thead>
+      <tbody>
+      {% for p in pagination.items %}
+        <tr>
+          <td><a href="{{ url_for('main.result', pred_id=p.id) }}">{{ p.id }}</a></td>
+          <td>{{ p.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+          <td class="file">{{ p.filename }}</td>
+          <td><span class="tag {{ 'ai' if p.label == 'AI-generated' else 'real' }}">{{ p.label }}</span></td>
+          <td>{{ '%.1f'|format(p.confidence * 100) }}%</td>
+          <td>{{ '%.3f'|format(p.p_ai) }}</td>
+          <td>{{ p.model_name }} v{{ p.model_version }}</td>
+          <td>{{ '%.0f'|format(p.latency_ms) }} ms</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <nav class="pager">
+    {% if pagination.has_prev %}<a href="{{ url_for('main.history', page=pagination.prev_num) }}">← Newer</a>{% endif %}
+    <span>Page {{ pagination.page }} of {{ pagination.pages }} · {{ pagination.total }} predictions</span>
+    {% if pagination.has_next %}<a href="{{ url_for('main.history', page=pagination.next_num) }}">Older →</a>{% endif %}
+  </nav>
+  {% else %}
+  <p class="muted">No predictions yet. <a href="{{ url_for('main.index') }}">Upload an image</a> to start.</p>
+  {% endif %}
+</section>
+{% endblock %}

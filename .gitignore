@@ -12,3 +12,6 @@ kt/
 mlflow.db
 mlruns/
 mlartifacts/
+model/
+instance/
+samples/
