@@ -1,5 +1,6 @@
 """Upload validation. The image lives only in memory and is never written to disk."""
-import hashlib, io
+import hashlib
+import io
 from flask import Request
 from PIL import Image
 from werkzeug.utils import secure_filename

@@ -1,5 +1,5 @@
 :root { --bg:#f5f6fa; --card:#fff; --text:#1d2433; --muted:#667085; --line:#e4e7ec;
-        --accent:#3a5bdb; --ai:#c2410c; --ai-bg:#fff4ed; --real:#15803d; --real-bg:#ecfdf3; }
+        --accent:#2851f5; --ai:#c2410c; --ai-bg:#fff4ed; --real:#15803d; --real-bg:#ecfdf3; }
 * { box-sizing: border-box; }
 body { margin:0; font-family: system-ui, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--text); }
 .topbar { display:flex; justify-content:space-between; align-items:center; padding:14px 28px;

@@ -1,7 +1,11 @@
 """Loads the champion ONCE and turns uploaded image bytes into a verdict."""
-import io, json, sys, time
+import io
+import json
+import sys
+import time
 from pathlib import Path
-import tensorflow as tf, keras
+import tensorflow as tf
+import keras
 from PIL import Image
 from visionguard.imaging import normalize, to_jpeg_bytes
 from visionguard.data import decode_and_resize

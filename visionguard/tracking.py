@@ -1,7 +1,10 @@
 """MLflow setup, reproducibility tags and the manual per-epoch logger."""
-import os, subprocess
+import os
+import subprocess
 from pathlib import Path
-import yaml, mlflow, keras
+import yaml
+import mlflow
+import keras
 from dotenv import load_dotenv
 
 EXPERIMENT = "22i0896_A2_Ops"

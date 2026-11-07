@@ -52,7 +52,7 @@ def build_transfer(backbone="mobilenetv2", img_size=224, dropout=0.3):
 
 def last_block_size(base, backbone):
     prefix = LAST_BLOCK_PREFIX[backbone]
-    first = next(i for i, l in enumerate(base.layers) if l.name.startswith(prefix))
+    first = next(i for i, layer in enumerate(base.layers) if layer.name.startswith(prefix))
     return len(base.layers) - first
 
 
