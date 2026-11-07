@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F"]
+# style choices used deliberately in this codebase (semicolons in plotting code, import after matplotlib.use)
+ignore = ["E402", "E501", "E701", "E702", "E731"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
