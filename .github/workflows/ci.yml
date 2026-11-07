@@ -21,7 +21,7 @@ jobs:
           pip install -r requirements-serve.txt
           pip install ruff pytest
       - name: Lint
-        run: ruff check app visionguard tests
+        run: ruff check app api visionguard tests
       - name: Test
         run: pytest -v
 

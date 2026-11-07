@@ -5,8 +5,7 @@ from visionguard.inference import Predictor
 from .config import Config
 from .db import db
 from .routes import bp, register_error_handlers
-from .uploads import MemoryOnlyRequest
-
+from visionguard.uploads import MemoryOnlyRequest
 
 def create_app(predictor=None, config_overrides=None):
     load_dotenv()

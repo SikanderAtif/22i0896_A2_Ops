@@ -1,7 +1,7 @@
 from flask import Blueprint, current_app, jsonify, redirect, render_template, request, url_for
 from sqlalchemy import text
 from .db import db, Prediction
-from .uploads import UploadError, read_upload
+from visionguard.uploads import UploadError, read_upload
 
 bp = Blueprint("main", __name__)
 

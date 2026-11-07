@@ -1,0 +1,8 @@
+# allowlist: ignore everything, then let through only what the API needs
+*
+!requirements-serve.txt
+!visionguard/
+!api/
+!model/champion.keras
+!model/metadata.json
+**/__pycache__
