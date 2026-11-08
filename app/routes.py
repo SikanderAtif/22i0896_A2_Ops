@@ -2,6 +2,7 @@ from flask import Blueprint, current_app, jsonify, redirect, render_template, re
 from sqlalchemy import text
 from .db import db, Prediction
 from visionguard.uploads import UploadError, read_upload
+from visionguard.remote import RemoteModelError
 
 bp = Blueprint("main", __name__)
 
@@ -47,13 +48,12 @@ def health():
     except Exception:
         db.session.rollback()
         db_ok = False
-    body = {"status": "ok" if db_ok else "degraded",
-            "model_loaded": True,
-            "model": current_app.extensions["predictor"].info(),
-            "database": "ok" if db_ok else "unreachable",
-            "debug": current_app.debug}
-    return jsonify(body), (200 if db_ok else 503)
-
+    info = current_app.extensions["predictor"].info()
+    model_ok = info.get("reachable", True)
+    body = {"status": "ok" if db_ok and model_ok else "degraded",
+            "model_loaded": model_ok, "model": info,
+            "database": "ok" if db_ok else "unreachable", "debug": current_app.debug}
+    return jsonify(body), (200 if db_ok and model_ok else 503)
 
 ERRORS = {400: ("Bad request", "The request could not be understood."),
           404: ("Page not found", "That page does not exist."),
@@ -73,3 +73,9 @@ def register_error_handlers(app):
                 db.session.rollback()
             return render_template("error.html", status=code, title=title, message=message), code
         app.register_error_handler(code, handler)
+
+    @app.errorhandler(RemoteModelError)
+    def remote_error(e):
+        db.session.rollback()
+        return render_template("error.html", status=503, title="Model service unavailable",
+                               message=str(e)), 503

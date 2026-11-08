@@ -16,6 +16,6 @@
     </nav>
   </header>
   <main class="container">{% block content %}{% endblock %}</main>
-  <footer>VisionGuard · 22i0896_A2_Ops · model {{ model_info.name }} v{{ model_info.version }}</footer>
-</body>
+  <footer>VisionGuard · 22i0896_A2_Ops · model {{ model_info.name }} v{{ model_info.version }}
+    {% if model_info.mode == 'remote' %}· served by cloud API {{ model_info.api_url }}{% endif %}</footer></body>
 </html>

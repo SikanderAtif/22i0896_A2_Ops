@@ -15,3 +15,7 @@ class Config:
         self.MAX_CONTENT_LENGTH = self.MAX_UPLOAD_BYTES * 4
         self.SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-change-me")
         self.HISTORY_PAGE_SIZE = int(os.getenv("HISTORY_PAGE_SIZE", "25"))
+        self.INFERENCE_MODE = os.getenv("INFERENCE_MODE", "local").lower()
+        self.MODEL_API_URL = os.getenv("MODEL_API_URL", "")
+        self.MODEL_API_KEY = os.getenv("MODEL_API_KEY", "")
+        self.MODEL_API_TIMEOUT = float(os.getenv("MODEL_API_TIMEOUT", "30"))

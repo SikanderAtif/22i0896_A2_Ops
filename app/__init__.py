@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask
-from visionguard.inference import Predictor
 from .config import Config
 from .db import db
 from .routes import bp, register_error_handlers
@@ -21,8 +20,16 @@ def create_app(predictor=None, config_overrides=None):
     with app.app_context():
         db.create_all()
 
-    app.extensions["predictor"] = predictor or Predictor(
-        app.config["MODEL_PATH"], app.config["MODEL_METADATA"], app.config["DECISION_THRESHOLD"])
+    if predictor is None:
+        if app.config["INFERENCE_MODE"] == "remote":
+            from visionguard.remote import RemotePredictor
+            predictor = RemotePredictor(app.config["MODEL_API_URL"], app.config["MODEL_API_KEY"],
+                                        app.config["MODEL_API_TIMEOUT"])
+        else:
+            from visionguard.inference import Predictor        # imports TensorFlow only in local mode
+            predictor = Predictor(app.config["MODEL_PATH"], app.config["MODEL_METADATA"],
+                                  app.config["DECISION_THRESHOLD"])
+    app.extensions["predictor"] = predictor
 
     @app.context_processor
     def inject_model():
