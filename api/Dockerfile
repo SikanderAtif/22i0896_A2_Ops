@@ -16,4 +16,4 @@ COPY model/champion.keras model/metadata.json model/
 USER apiuser
 EXPOSE 8080
 # shell form so ${PORT} is read at run time: cloud platforms set PORT themselves
-CMD exec gunicorn --bind 0.0.0.0:${PORT} --workers 1 --threads 4 --timeout 120 --access-logfile "api.main:create_api()"
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "1", "--threads", "4", "--timeout", "120", "--access-logfile", "-", "api.main:create_api()"]
